@@ -1,0 +1,88 @@
+<div class="product-action">
+
+    {% if product.salePrice > 0 and product.salePrice < product.price %}
+    <div class="product-sale-label">Oferta</div>
+    {% endif %}
+
+    <a href="{{ product.url }}" class="product-image">
+        <img src="{{ product.image.medium }}" alt="{{ product.name }}" class="img-responsive main">
+        <img src="{{ product.secondImage.medium }}" alt="{{ product.name }}" class="alt-img img-responsive">
+    </a>
+
+    <div class="actions">
+        <div class="actions-inner">
+            <div class="action-list addtocart">
+                {% if product.combination_count == 1 %}
+                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="idProduct" value="{{ product.idProduct }}">
+                    <button type="submit" class="btn-cart add-to-cart">
+                        <span><span><i class="fa fa-shopping-cart"></i></span></span>
+                    </button>
+                </form>
+
+                {% else %}
+
+                <a href="{{ product.url }}" class="btn-cart">
+                    <span><span><i class="fa fa-shopping-cart"></i>Opciones de producto</span></span>
+                </a>
+                {% endif %}
+            </div>
+            <div class="action-list">
+
+                <div class="product-wishlist">
+                    <ul class="add-to-links">
+                        <li><a href="/favoritos" class="link-wishlist add-to-wishlist" data-id="{{ product.idProduct }}" data-added="Browse wishlist"><i class="fa fa-heart-o"></i>Agregar a favoritos</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="action-list quickview hidden-xs">
+                <div class="quickview-wrapper" data-handle="{{ product.slug }}"><i class="fa fa-search-plus"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-content">
+    <h3 class="product-name">
+        <a href="{{ product.url }}" title="{{ product.name }}">{{ product.name }}</a>
+    </h3>
+    <div class="product-short-desc">
+        {{ product.shortDescription }}
+    </div>
+    <div class="rating-box">
+        <span class="spr-badge" id="spr_badge_{{ product.idProduct }}" data-rating="{{ product.score.quality }}">
+
+            <span class="spr-starrating spr-badge-starrating">
+                {% for s in 0..(product.score.quality | round) if s > 0 %}
+                <i class="spr-icon spr-icon-star" style=""></i>
+                {% endfor %}
+                {% for s in 0..(5-product.score.quality | round) if s < (5-product.score.quality | round) %}
+                <i class="spr-icon spr-icon-star-empty" style=""></i>
+                {% endfor %}
+            </span>
+
+        </span>
+    </div>
+
+    <div class="price">
+
+        {% if product.salePrice > 0 and product.salePrice < product.price %}
+
+        <div class="special-price">
+            <span class="money">{{ product.salePrice | price }}</span>
+        </div>
+        <div class="compare-price">
+            <span class="money">{{ product.price | price }}</span>
+        </div>
+
+        {% else %}
+
+        <span class="money">{{ product.price | price }}</span>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<script data-id="product-block-template-{{ product.idProduct }}" type="text/template" data-handle="{{ product.slug }}"></script>

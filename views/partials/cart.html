@@ -1,0 +1,62 @@
+{% if cart.product | length > 0 %}
+<div class="cart-content">
+
+    <ul class="clearfix">
+
+        {% for item in cart.product %}
+
+        <li class="item-cart">
+            <a class="product-image" href="{{ item.product.url }}">
+                <img src="{{ item.image }}" style="width: 80px!important" alt="{{ item.product.name }} -
+                    {% for key,option in item.option %}
+                    {{ item.values[key].name }}
+                    {% if not loop.last %} / {% endif %}
+
+                    {% endfor %}">
+            </a>
+            <div class="product-details row-fluid show-grid">
+                <p class="product-name">
+                    <a href="{{ item.product.url }}">
+                        <span>{{ item.product.name }} -
+                    {% for key,option in item.option %}
+                    {{ item.values[key].name }}
+                    {% if not loop.last %} / {% endif %}
+
+                    {% endfor %}</span>
+
+                    </a>
+                </p>
+                <div class="items">
+                    <span class="price">{{ item.quantity }} × <span class="amount"><span class="money">{{ item.price | price }}</span></span></span>
+                </div>
+                <div class="access">
+                    <a href="javascript:;" class="btn-remove btn-remove-cart" data-id="{{ item.item }}" title="Remover"><i class="fa fa-trash"></i></a>
+                </div>
+            </div>
+        </li>
+
+        {% endfor %}
+
+    </ul>
+    <p class="subtotal">
+        <span class="label">Total:</span>
+        <span class="price"><span class="money">{{ cart.total | price }}</span></span>
+    </p>
+
+</div>
+
+<div class="cart-checkout">
+    <a href="/cart" class="btn-button view-cart">
+        <span>Ver carrito</span>
+    </a>
+    <a href="/checkout" class="btn-button checkout-cart">
+        <span>Checkout</span>
+    </a>
+
+</div>
+
+{% else %}
+
+<p class="no-items-in-cart">No tiene articulos en su carrito de compras.</p>
+
+{% endif %}

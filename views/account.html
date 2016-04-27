@@ -1,0 +1,163 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde customer-logged-in template-customers-account{% endblock %}
+
+{% block content %}
+
+<nav class="main-breadcrumbs" role="navigation" aria-label="breadcrumbs">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li class="home">
+                    <a href="/" title="Back to the frontpage">Inicio</a>
+                </li>
+
+                <li>
+                    <span aria-hidden="true">/</span>
+                    <span>Mi cuenta</span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="account-dashboard">
+            <div class="page-title">
+                <h2>Mi cuenta</h2>
+            </div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <div class="main-account">
+                    <div class="my-account">
+                        <h5>{{ customer.names }} {{ customer.surnames }} <span>(<a href="/logout" id="customer_logout_link">Salir</a>)</span></h5>
+                    </div>
+                    <div class="my-order">
+                        <h5>Historial de ordenes</h5>
+
+
+
+
+                        {% if customer.orders | length > 0 %}
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Fecha</th>
+                                    <th class="text-center">Monto</th>
+                                    <th class="text-center">Acción</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for order in customer.orders %}
+                                <tr>
+                                    <th class="text-center">{{ order.orderNumber }}</th>
+                                    <td class="text-center">{{ order.created_at | date('Y, M d') }}</td>
+                                    <td class="text-center">{{ order.total | price }}</td>
+                                    <td class="text-center">
+
+                                        <a href="#" data-toggle="modal" data-target="#{{ order.orderNumber }}-modal"
+                                           class="btn btn-3"
+                                           data-toggle="tooltip" data-placement="top" title="Abrir ticket"/>Ver</a>
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {% for order in customer.orders %}
+
+                        <div class="modal fade" id="{{ order.orderNumber }}-modal" tabindex="-1" role="dialog"
+                             aria-labelledby="{{ order.orderNumber }}-label">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></a>
+                                        <h4 class="modal-title" id="{{ order.orderNumber }}-label">Orden #{{
+                                            order.orderNumber }}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>Método de pago: </strong> {{ order.payment.title }}</p>
+                                        <p><strong>Estado: </strong> {{ order.status.title }}</p>
+                                        <h3>Resumen</h3>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">SKU</th>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center">Cantidad</th>
+                                                    <th class="text-center">Precio</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for key,item in order.product %}
+                                                <tr>
+                                                    <th scope="row" class="text-center">{{ key + 1 }}</th>
+                                                    <td class="text-center">{{ item.sku }}</td>
+                                                    <td class="text-center">{{ item.name }}</td>
+                                                    <td class="text-center">{{ item.pivot.quantity }}</td>
+                                                    <td class="text-center">{{ item.pivot.price | price }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <th></th>
+                                                    <th colspan="3" class="text-right">Subtotal</th>
+                                                    <th class="text-center">{{ order.subtotal | price }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <th colspan="3" class="text-right">Envio</th>
+                                                    <th class="text-center">{{ order.shipping | price }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <th colspan="3" class="text-right">IVA</th>
+                                                    <th class="text-center">{{ order.tax | price }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <th colspan="3" class="text-right">Total</th>
+                                                    <th class="text-center">{{ order.total | price }}</th>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        {% endfor %}
+
+                        {% else %}
+                        <p>No tiene ninguna orden.</p>
+                        {% endif %}
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

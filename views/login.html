@@ -1,0 +1,79 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde template-customers-login{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="account-login">
+        <div class="note form-success" id="ResetSuccess" style="display:none;">
+            Le enviaremos una nueva contraseña a su correo electrónico.
+        </div>
+        <div id="CustomerLoginForm" class="form-vertical">
+            <form method="post" action="/login" id="customer_login" accept-charset="UTF-8">
+                <div class="page-title">
+                    <h1>¿Ya estás registrado?</h1>
+                    <p>Si ya tienes una cuenta, por favor ingresa directamente.</p>
+                </div>
+
+                <div class="form-box">
+                    <div class="content">
+                        <ul class="form-list">
+                            <li>
+                                <label for="CustomerEmail" class="hidden-label">Email</label>
+                                <input type="email" name="email" id="CustomerEmail" class="input-full" placeholder="Email" autocorrect="off" autocapitalize="off" autofocus="">
+                            </li>
+                            <li>
+
+                                <label for="CustomerPassword" class="hidden-label">Password</label>
+                                <input type="password" value="" name="password" id="CustomerPassword" class="input-full" placeholder="Password">
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="buttons-set">
+                        <input type="submit" class="btn-button uppercase" value="Sign In">
+
+                        <p><a href="#recover" id="RecoverPassword">¿Olvidaste tu contraseña?</a></p>
+
+                    </div>
+                    <div class="new-users">
+                        <h1>Eres nuevo?</h1>
+                        <p>El registro es facil y rápido!</p>
+                        <button type="button" title="Create an Account" class="btn-button uppercase" onclick="window.location='/register';">
+                            <span><span>Crear nueva cuenta</span></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div id="RecoverPasswordForm" style="display: none;">
+            <div class="page-title">
+                <h1>Resetear contraseña</h1>
+                <p>Le enviaremos una nueva contraseña a su correo electrónico.</p>
+            </div>
+            <div class="form-box">
+                <form method="post" action="/password/send" accept-charset="UTF-8">
+                    <div class="content">
+                        <ul class="form-list">
+                            <li>
+                                <label for="RecoverEmail" class="hidden-label">Email</label>
+                                <input type="email" value="" name="email" id="RecoverEmail" class="input-full" placeholder="Email" autocorrect="off" autocapitalize="off">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="buttons-set">
+                        <input type="submit" class="btn-button" value="Submit">
+                        <p><a href="javascript:void(0);" id="HideRecoverPasswordLink" class="text-link">Cancel</a></p>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

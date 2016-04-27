@@ -1,0 +1,69 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde template-article{% endblock %}
+
+{% block content %}
+
+<nav class="main-breadcrumbs" role="navigation" aria-label="breadcrumbs">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li class="home">
+                    <a href="/" title="Back to the frontpage">Inicio</a>
+                </li>
+
+                {% for tag in post.tags %}
+
+                <li>
+                    <span aria-hidden="true">/</span>
+                    <a href="{{ tag.url }}">{{ tag.name }}</a>
+                </li>
+
+                {% endfor %}
+
+                <li>
+                    <span aria-hidden="true">/</span>
+                    <span>{{ post.title }}</span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="blog-wrapper">
+                <div class="postWrapper">
+                    <div class="postTitle">
+                        <div class="section-header__left">
+                            <h3>{{ post.title }}</h3>
+                            <div class="postDetails">
+                                <time datetime="2015-10-27">{{ post.created_at | date('M d, Y') }}</time></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="postContent">
+
+                        <div class="excerpt img-responsive">
+                            <a href="{{ post.url }}">
+                                <img src="{{ post.image.full }}" width="100%" alt="">
+                            </a>
+                        </div>
+
+                        {{ post.content }}
+
+                    </div>
+
+                    <hr>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

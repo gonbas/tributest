@@ -1,0 +1,89 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde template-page{% endblock %}
+
+{% block content %}
+
+    <nav class="main-breadcrumbs" role="navigation" aria-label="breadcrumbs">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li class="home">
+                        <a href="/" title="Back to the frontpage">Inicio</a>
+                    </li>
+
+                    <li>
+                        <span aria-hidden="true">/</span>
+                        <span>Favoritos</span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="page">
+            <div class="title">
+                <h2>Favoritos</h2>
+            </div>
+            <div class="page_content">
+
+            </div>
+
+            <ul class="wishlist-items">
+                <li class="head">
+                    <ul>
+                        <li class="col-1 hidden-xs">Imagen</li>
+                        <li class="col-2">Nombre</li>
+                        <li class="col-3">Precio</li>
+                        <li class="col-4"></li>
+                    </ul>
+                </li>
+                <li class="tbody">
+                    <ul>
+                        {% for item in favorites %}
+                        <li class="item" data-handle="{{ item.idProduct }}">
+                            <ul>
+                                <li class="col-1 hidden-xs">
+                                    <a href="{{ item.url }}" class="product-image">
+                                        <img src="{{ item.image.medium }}" alt="{{ item.name }}">
+                                    </a>
+                                </li>
+                                <li class="col-2">
+                                    <a href="{{ item.url }}" class="product-image visible-xs">
+                                        <img src="{{ item.image.medium }}" alt="{{ item.name }}">
+                                    </a>
+                                    <a href="{{ item.url }}" class="product-title mtop">{{ item.name }}</a>
+                                </li>
+                                <li class="col-3"><div class="product-price"><span class="money">{{ item.price }}</span></div></li>
+                                <li class="col-4">
+                                    <div class="action">
+                                        <div class="wishlist">
+                                            <form method="post" action="#" class="contact-form" accept-charset="UTF-8">
+                                                <button type="submit" class="remove-wishlist"><i class="fa fa-close"></i></button>
+                                            </form>
+                                        </div> |
+                                        <div class="addtocart">
+                                            <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                                <input type="hidden" name="idProduct" value="{{ product.idProduct }}">
+                                                {% if product.combinations[0].isMultipleOpts == 0 %}
+                                                <button type="submit" class="add-to-cart"><i class="fa fa-shopping-cart"></i></button>
+                                                {% else %}
+                                                <button type="button" onclick="window.location = '{{ item.url }}'" class="add-to-cart"><i class="fa fa-shopping-cart"></i></button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

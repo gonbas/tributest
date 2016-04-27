@@ -1,0 +1,161 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
+@import url(//cdn.ulcommerce.com/font-awesome/4.3.0/css/font-awesome.min.css);
+
+.product-view .product-options-bottom .add-to-cart-box .button-wrapper span {
+    font-size: 10px;
+}
+
+.footer-wrapper{
+        margin-top: 20px;
+}
+
+.header-wrapper .header-container .main-header .left-header {
+    width: 320px;
+}
+
+/* Alerts */
+.alert-global {
+    top: 10px;
+    z-index: 99999;
+    border-radius: 5px;
+    left: 10px;
+    position: fixed;
+    box-shadow: 0 0px 4px 0px #585858;
+    font-weight: 600;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: bounceInDown;
+    animation-name: bounceInDown;
+}
+.main-container .block-signup {
+    margin-bottom: -20px;
+}
+.footer-wrapper {
+    background-color: #000;
+}
+.btn-button.bordered.black, .spr-button.bordered.black {
+    border-color: #000;
+    background-color: #000;
+}
+.footer-wrapper .footer-copyright {
+    background: #FFFFFF;
+    color: #000000;
+}
+.footer-wrapper .footer-top .social ul.social-icons li a {
+    border-radius: 50%;
+}
+.main-container .block-signup .content {
+    padding: 50px 0;
+}
+.footer-wrapper .footer-top {
+    padding: 50px 0;
+}
+
+
+@-webkit-keyframes bounceInDown {
+    from, 60%, 75%, 90%, to {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -3000px, 0);
+        transform: translate3d(0, -3000px, 0);
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 25px, 0);
+        transform: translate3d(0, 25px, 0);
+    }
+
+    75% {
+        -webkit-transform: translate3d(0, -10px, 0);
+        transform: translate3d(0, -10px, 0);
+    }
+
+    90% {
+        -webkit-transform: translate3d(0, 5px, 0);
+        transform: translate3d(0, 5px, 0);
+    }
+
+    to {
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@keyframes bounceInDown {
+    from, 60%, 75%, 90%, to {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -3000px, 0);
+        transform: translate3d(0, -3000px, 0);
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 25px, 0);
+        transform: translate3d(0, 25px, 0);
+    }
+
+    75% {
+        -webkit-transform: translate3d(0, -10px, 0);
+        transform: translate3d(0, -10px, 0);
+    }
+
+    90% {
+        -webkit-transform: translate3d(0, 5px, 0);
+        transform: translate3d(0, 5px, 0);
+    }
+
+    to {
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@-webkit-keyframes bounceOutUp {
+    20% {
+        -webkit-transform: translate3d(0, -10px, 0);
+        transform: translate3d(0, -10px, 0);
+    }
+
+    40%, 45% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 20px, 0);
+        transform: translate3d(0, 20px, 0);
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -2000px, 0);
+        transform: translate3d(0, -2000px, 0);
+    }
+}
+
+@keyframes bounceOutUp {
+    20% {
+        -webkit-transform: translate3d(0, -10px, 0);
+        transform: translate3d(0, -10px, 0);
+    }
+
+    40%, 45% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 20px, 0);
+        transform: translate3d(0, 20px, 0);
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -2000px, 0);
+        transform: translate3d(0, -2000px, 0);
+    }
+}

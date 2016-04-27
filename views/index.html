@@ -1,0 +1,241 @@
+{% extends 'views.base' %}
+
+{% block header %}
+
+<div class="top-container">
+
+
+    <div class="ico-slider-outer">
+        <div id="ico-slider-1" class="ico-slider swiper-container" data-type="slider" data-fullscreen="0" data-max-height="700" data-transition="slide" data-loop="true" data-slide-count="5" data-autoplay="" data-continue="0">
+            <div class="swiper-wrapper">
+
+                {% for key,slide in page.banner.main.slides %}
+
+                <div class="swiper-slide  image-slide   " data-slide-id="{{ key+1 }}" style="background-image: url({{ slide.image }});background-color: #0b0b0b" data-bg-align="center" data-slide-title="{{ slide.altImage }}" data-slide-img="{{ slide.image }}" data-style="{{ slide.open ? 'light' : 'dark' }}">
+                    <div class="overlay" style="-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=00)';filter: alpha(opacity=00);-moz-opacity: 0.0;-khtml-opacity: 0.0;opacity: 0.0;background-color: #0b0b0b;"></div>
+                    <div class="caption-wrap container">
+                        <div class="caption-content" data-caption-color="" data-caption-x="center" data-caption-y="middle" data-caption-size="smaller">
+
+                            <h2 class="caption-title">{{ slide.altImage }}</h2>
+
+                            <div class="caption-excerpt">
+
+                                {{ slide.description }}
+
+                                <a class="btn-button uppercase bordered" href="{{ slide.url }}" target="_self">
+                                    <span class="text">Comprar ahora!</span>
+                                </a>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <a class="ico-slider-prev " href="#">
+                <i class="fa fa-angle-left"></i><h4>Ant</h4>
+            </a>
+            <a class="ico-slider-next " href="#">
+                <i class="fa fa-angle-right"></i><h4>Sig</h4>
+            </a>
+
+
+
+            <div id="ico-slider-loader" class="circle-bar">
+                <div class="spinner ">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="home-banner">
+            <div class="col-sm-5">
+
+                {% for key,slide in page.banner.boxes.slides if key == 0 %}
+
+                <div class="inner-banner banner-main">
+                    <div class="overlay">
+                    <span class="widget widget-category-link">
+                      <a href="{{ slide.url }}"><i class="fs1" aria-hidden="true" data-icon="$"></i></a>
+                    </span>
+                    </div>
+                    <div class="banner-img">
+                        <div class="banner-content">
+                            <div class="banner-content-inner">
+                                <span class="text">{{ slide.altImage }}</span>
+                                <span class="content">{{ slide.description }}</span>
+                            </div>
+                        </div>
+                        <img src="{{ slide.image }}" alt="{{ slide.altImage }}" />
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        {% for key,slide in page.banner.boxes.slides if key == 1 %}
+
+                        <div class="inner-banner">
+                            <div class="overlay">
+                              <span class="widget widget-category-link">
+                                <a href="{{ slide.url }}"><i class="fs1" aria-hidden="true" data-icon="$"></i></a>
+                              </span>
+                            </div>
+                            <div class="banner-img">
+                                <span class="text">{{ slide.altImage }}</span>
+                                <img src="{{ slide.image }}" alt="{{ slide.altImage }}" />
+                            </div>
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+                    {% for key,slide in page.banner.boxes.slides if key > 1 %}
+                    <div class="col-sm-6">
+
+                        <div class="inner-banner">
+                            <div class="overlay">
+                              <span class="widget widget-category-link">
+                                <a href="{{ slide.url }}"><i class="fs1" aria-hidden="true" data-icon="$"></i></a>
+                              </span>
+                            </div>
+                            <div class="banner-img">
+                                <span class="text">{{ slide.altImage }}</span>
+                                <img src="{{ slide.image }}" alt="{{ slide.altImage }}" />
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="products-collection">
+            <h3 class="title-widget">
+                <span class="title-main">NUEVOS PRODUCTOS</span>
+                <span class="title-bg">NEW</span>
+            </h3>
+            <div class="border-icon"></div>
+            <div class="category-products">
+                <div class="data-carousel"
+                     data-items="4"
+                     data-auto=""
+                     data-paging="false"
+                     data-nav="true"
+                     data-prev='<i class="fa fa-angle-left"></i><span>Ant</span>'
+                     data-next='<span>Sig</span><i class="fa fa-angle-right"></i>' style="display: none;"></div>
+                <div class="products-grid  owl-carousel ">
+                    {% for key,product in latestProducts %}
+                    <div class="item product effect-pageLeft " data-order="{{ key }}">
+                        {% include 'views.inc.card' %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="tab-product-collection">
+
+            <h3 class="title-widget">
+                <span class="title-main">MEJORES PRODUCTOS</span>
+                <span class="title-bg">TOP</span>
+            </h3>
+            <div class="border-icon"></div>
+
+            <div class="tab-selector">
+                <ul class="nav nav-tabs" role="tablist">
+
+                    <li class="active"><a href="#collection1" data-toggle="tab">Destacados</a></li>
+                    <li><a href="#collection2" data-toggle="tab">Más vendidos</a></li>
+
+
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="collection1">
+                    <div class="category-products">
+
+                        <div class="data-carousel"
+                             data-items="4"
+                             data-auto=""
+                             data-paging="false"
+                             data-nav="true"
+                             data-prev='<i class="fa fa-angle-left"></i><span>Ant</span>'
+                             data-next='<span>Sig</span><i class="fa fa-angle-right"></i>' style="display: none;"></div>
+                        <div class="products-grid  owl-carousel ">
+                            {% for key,product in featuredProducts %}
+                            <div class="item product effect-pageLeft " data-order="{{ key }}">
+                                {% include 'views.inc.card' %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="collection2">
+                    <div class="category-products">
+
+                        <div class="data-carousel"
+                             data-items="4"
+                             data-auto=""
+                             data-paging="false"
+                             data-nav="true"
+                             data-prev='<i class="fa fa-angle-left"></i><span>Ant</span>'
+                             data-next='<span>Sig</span><i class="fa fa-angle-right"></i>' style="display: none;"></div>
+                        <div class="products-grid  owl-carousel ">
+                            {% for key,product in bestSaleProducts %}
+                            <div class="item product effect-pageLeft " data-order="{{ key }}">
+                                {% include 'views.inc.card' %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="block-signup">
+    <div class="container">
+        <div class="content">
+            <div class="content-left">
+                <h3>{{ page.section.banner_2.title }}</h3>
+                {{ page.section.banner_2.description }}
+            </div>
+            <div class="content-right">
+                <a class="btn-button bordered black uppercase" href="{{ page.section.banner_2.url }}">Comprar ahora!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

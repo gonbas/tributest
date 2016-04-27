@@ -1,0 +1,152 @@
+<div class="product-view quick-view product">
+    <div class="product-essential">
+        <div class="product-img-box col-sm-5">
+            <div class="product-img-list">
+                <div class="product-image  product-image-zoom zoom-available ">
+                    <div class="product-image-gallery">
+
+                        {% set hasImage = false %}
+                        {% for key,image in product.images %}
+                        <img class="gallery-image {% if not hasImage and image.main %}visible{% endif %}" id="image-{% if not hasImage and image.main %}main {% set hasImage = true %}{% else %}{{ key + 1 }}{% endif %}" src="{{ image.full }}" data-zoom-image="{{ image.full }}">
+                        {% if image.main %}
+                        <img class="gallery-image" id="image-{{ key + 1 }}" src="{{ image.full }}" data-zoom-image="{{ image.full }}">
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+
+                <div class="more-views-horizontal">
+                    <div class="row">
+                        <div class="data-carousel" data-items="4" data-auto="" data-paging="false" data-nav="true" data-prev='' data-next='' style="display: none;"></div>
+                        <div id="more-slides" class="product-image-thumbs owl-carousel">
+
+                            {% for key,image in product.images %}
+
+                            <div class="item">
+                                <a class="thumb-link" href="javascript:void(0);" data-image-index="{{ key + 1 }}" data-image="{{ image.full }}" data-zoom-image="{{ image.full }}" data-color="{{ image.groupid }}">
+                                    <img class="img-responsive" src="{{ image.medium }}" />
+                                </a>
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="product-shop col-md-7 col-sm-7">
+            <div class="product-shop-wrapper">
+                <div class="product-name top-product-detail">
+                    <h2><a href="{{ product.url }}">{{ product.name }}</a></h2>
+                </div>
+                <div class="middle-product-detail">
+                    <div class="product-type-data">
+                        <div class="price-box">
+                            <div id="price" class="detail-price" itemprop="price">
+
+                                {% if product.salePrice > 0 and product.salePrice < product.price %}
+
+                                <del class="price_compare"> {{ product.price | price }}</del>
+
+                                <div class="price">{{ product.salePrice | price }}</div>
+
+                                {% else %}
+
+                                <div class="price">{{ product.price | price }}</div>
+
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="short-description-detail">
+                        <div class="short-description">
+                            {{ product.shortDescription }}
+                        </div>
+                    </div>
+                </div>
+                <div class="product-type-main">
+                    <form class="product-form" id="product-form" action="/cart/add" method="post" enctype="multipart/form-data" data-product-id="{{ product.idProduct }}">
+                        <input type="hidden" name="idProduct" value="{{ product.idProduct }}">
+                        <div id="product-variants" class="product-options" >
+                            {% for key,option in product.options %}
+
+                            {% if option.type == 'colors' %}
+
+                            <div class="swatch color clearfix" data-option-index="1">
+                                <div class="header"><span>{{ option.name }}</span></div>
+                                <div>
+                                    {% for value in option.values %}
+                                    <div data-value="{{ value.name }}" class="swatch-element available">
+                                        <div class="tooltip">{{ value.name }}</div>
+                                        <input id="swatch-{{ value.idOptionValue }}-m" type="radio" name="values[{{ key }}]" value="{{ value.idOptionValue }}">
+                                        <label for="swatch-{{ value.idOptionValue }}-m" class="img">
+                                            <i style="{{ value.value1 }}"></i>
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+
+                            {% else %}
+
+                            <div class="swatch size clearfix" data-option-index="0">
+                                <div class="header"><span>{{ option.name }}</span></div>
+                                <div>
+                                    {% for value in option.values %}
+                                    <div data-value="M" class="swatch-element m available ">
+                                        <input id="swatch-{{ value.idOptionValue }}-m" type="radio" name="values[{{ key }}]" value="{{ value.idOptionValue }}">
+                                        <label for="swatch-{{ value.idOptionValue }}-m">{{ value.value1 }}</label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            {% endif %}
+                            <input type="hidden" name="options[{{ key }}]" value="{{ option.idOption }}"/>
+                            {% endfor %}
+                        </div>
+                        <div class="product-options-bottom">
+                            <div class="add-to-cart-box">
+                                <div class="input-box pull-left">
+                                    <label for="Quantity" class="quantity-selector">Cantidad</label>
+                                    <div class="reduced items" onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty > 1 ) result.value--;return false;">
+                                        <i class="fa fa-minus"></i>
+                                    </div>
+                                    <input type="text" id="qty" name="quantity" value="1" min="1" class="quantity-selector">
+                                    <div class="increase items" onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;">
+                                        <i class="fa fa-plus"></i>
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <div class="action-list addtocart">
+                                        <div class="button-wrapper">
+                                            <div class="icon_bag_alt"></div>
+                                            <button type="submit" name="add" class="btn-cart add-to-cart">
+                                                  <span>
+                                                    <span>Agregar al carrito</span>
+                                                  </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="action-list wishlist wishlist-{{ product.idProduct }}">
+
+                                        <ul class="add-to-links">
+                                            <li><a href="/favoritos" class="link-wishlist add-to-wishlist" data-id="{{ product.idProduct }}" data-added="Browse wishlist"><i class="fa fa-heart-o"></i>Agregar a favoritos</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

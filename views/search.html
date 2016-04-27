@@ -1,0 +1,79 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde template-search{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="main-search-container">
+        <div class="col-sm-12">
+            <div class="search-form">
+
+                <h3 class="text-center">La busqueda de "{{ search.query }}" reveló lo siguiente:</h3>
+
+                <!-- /snippets/search-bar.liquid -->
+                <form action="/search" method="post" class="input-group search-bar">
+                    <div class="input-group form-search">
+
+                        <input type="search" name="key" value="{{ search.query }}" placeholder="Search our store" class="input-group-field" aria-label="Search our store">
+                        <button type="submit" class="btn-button">
+                            <span><span><i class="fa fa-search"></i></span></span>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="category-products">
+                    <div id="products" class="products-grid itemgrid grid-product-masonry">
+
+                        {% if search.products | length > 0 %}
+
+                        {% for product in search.products %}
+
+                        <div class="item product col-sm-3">
+                            {% include 'views.inc.card' %}
+                        </div>
+
+                        {% endfor %}
+
+                        {% else %}
+
+                        <div class="col-sm-12"><p>No hubo resultados en su busqueda.</p> </div>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% if search.pages > 1 %}
+
+            <div class="pagenav-wrap">
+                <div class="pagination-search">
+
+                    {% if search.currentPage != 1 %}
+                        <span class="prev">
+                            <a href="#" data-value="{{ p-1 }}"><i class="fa fa-angle-double-left"></i></a>
+                        </span>
+                    {% endif %}
+
+                    {% for p in 1..search.pages if p > 0 %}
+                    <span class="page {{ search.currentPage == p ? 'current' : '' }}">{% if search.currentPage == p %}{{ p }}{% else %}<a href="#" data-value="{{ p }}">{{ p }}</a>{% endif %}</span>
+                    {% endfor %}
+
+                    {% if search.currentPage != search.pages %}
+                        <span class="next">
+                            <a href="#" data-value="{{ p+1 }}"><i class="fa fa-angle-double-right"></i></a>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

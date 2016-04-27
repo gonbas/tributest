@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- seo-->
+    <title>{% block title %}{{ title }} - {{ store.nameStore }} {% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ description }}{% endblock %}">
+    <link rel="canonical" href="{{ url_current() }}"/>
+    <meta name="robots" content="{% block robots %}index,follow{% endblock %}">
+    {% if store.twitterUserStore %}
+    <meta name="twitter:site" content="{{store.twitterUserStore }}"/>
+    {% endif %}
+    {{ page.meta }}
+
+    {% block meta %}{% endblock %}
+
+
+    <!-- stylesheets -->
+    <link href="//cdn.ulcommerce.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ 'css/elegantfont.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/ico-slider.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/owl.carousel.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/owl.theme.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/owl.effects.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/effect.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/ultramegamenu.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/colorbox.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/styles.scss.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/responsive.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/color-config.scss.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/jquery.fancybox.css' | static_url }}" type='text/css'>
+    <link rel="stylesheet" href="{{ 'css/spr.css' | static_url }}" type='text/css'>
+    {% block style %}{% endblock %}
+    <link rel="stylesheet" href="{{ 'css/theme.css' | static_url }}" type='text/css'>
+
+    <!-- javascript/jQuery -->
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{{ 'js/modernizr.min.js' | static_url }}" type="text/javascript"></script>
+    <script src="//cdn.ulcommerce.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
+    {% block script %}{% endblock %}
+    <script src="{{ 'js/custom.js' | static_url }}" type="text/javascript"></script>
+
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://latamcdn.ulcommerce.com/inkanta/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="https://latamcdn.ulcommerce.com/inkanta/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://latamcdn.ulcommerce.com/inkanta/favicons/favicon-194x194.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="https://latamcdn.ulcommerce.com/inkanta/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="https://latamcdn.ulcommerce.com/inkanta/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="https://latamcdn.ulcommerce.com/inkanta/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://latamcdn.ulcommerce.com/inkanta/favicons/manifest.json">
+    <link rel="mask-icon" href="https://latamcdn.ulcommerce.com/inkanta/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://latamcdn.ulcommerce.com/inkanta/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://latamcdn.ulcommerce.com/inkanta/favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="https://latamcdn.ulcommerce.com/inkanta/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+    <![endif]-->
+</head>
+
+<body class="{% block bodyClass %}parallax-silde index-template{% endblock %}">
+
+<!-- begin site-header -->
+<header class="header-wrapper">
+    <div class="header-container">
+        <div id="main-header-mobile" class="main-header mobile-header visible-tablet">
+
+            <a href="/" class="logo">
+                <img class="x1" src="{{ store.logoStore }}" alt="{{ store.nameStore }}" />
+                <img class="logo-sticky" src="{{ store.logoStore }}" alt="{{ store.nameStore }}" />
+            </a>
+
+            <div class="right-header-menu">
+                <div class="right-wrapp">
+                    <div class="item header-search">
+                        <div class="search-container">
+                            <div class="overwrite-setting skip-link" onclick="mobileSkipLink(this);" data-target-element="#navbar-search">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <div id="navbar-search" class="switcher-content skip-content">
+                                <!-- /snippets/search-bar.liquid -->
+                                <form action="/search" method="post" class="input-group search-bar">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                    <div class="input-group form-search">
+                                        <input type="search" name="key" value="{{ search.query }}" placeholder="Search our store" class="input-group-field" aria-label="Search our store">
+                                        <button type="submit" class="btn-button">
+                                            <span><span><i class="fa fa-search"></i></span></span>
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item header-maincart">
+                        <div class="cart-container">
+                            <a href="javascript:;" class="icon-cart-header skip-link" onclick="mobileSkipLink(this);" data-target-element="#navbar-cart">
+                                <span class="icon_bag_alt"></span>
+                                <span class="cart-count">{{ itemCart }}</span>
+                            </a>
+                            <div id="navbar-cart" class="cart-wrapper skip-content">
+                                <div class="cart-inner">
+                                    <div class="cartloading" style="display: none;"><div class="spinner"><div class="circle"></div></div></div>
+                                    <div class="cart-inner-content">
+                                        <div class="cart-content">
+
+                                            {% set cart = app.session.get('cart') %}
+
+                                            {% include 'views.partials.cart' %}
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item header-setting">
+                        <div class="setting-switcher switcher-wrap">
+                            <div class="overwrite-setting skip-link" onclick="mobileSkipLink(this);" data-target-element="#navbar-setting">
+                                <span class="fa fa-cog visible-tablet"></span>
+                            </div>
+                            <div id="navbar-setting" class="switcher-content skip-content">
+                                <ul class="links">
+
+                                    <li>
+                                        <a href="/favoritos">Favoritos</a>
+                                    </li>
+                                    {% if customer.logged %}
+                                    <li>
+                                        <a href="/logout">Salir</a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                        <a href="/login">Ingresar</a>
+                                    </li>
+                                    <li>
+                                        <a href="/register">Crear cuenta</a>
+                                    </li>
+                                    {% endif %}
+
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="item header-menu">
+                        <div class="navbar">
+                            <div class="navbar-header skip-link" onclick="mobileSkipLink(this);" data-target-element="#navbar-toggle">
+                                <button class="navbar-toggle" type="button" data-toggle="collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div id="navbar-toggle" class="bs-navbar-collapse skip-content">
+                                <ul id="mobile-menu" class="nav-accordion nav-categories">
+
+                                    {% for category in categories %}
+
+                                    <li class="level0 level-top parent ">
+                                        <a href="{{ category.url }}" class="level-top"><span>{{ category.name }}</span></a>
+                                        <ul class="level0">
+
+                                            {% for children in category.children %}
+
+                                            <li class="level1 parent">
+                                                <a href="{{ children.url }}"><span>{{ children.name }}</span></a>
+                                                <ul class="level1">
+
+                                                    {% for sub in children.children %}
+
+                                                    <li class="level2 ">
+                                                        <a href="{{ sub.url }}" class="site-nav__link">
+                                                            {{ sub.name }}
+                                                        </a>
+                                                    </li>
+
+                                                    {% endfor %}
+
+                                                </ul>
+                                            </li>
+
+                                            {% endfor %}
+
+                                        </ul>
+                                    </li>
+
+                                    {% endfor %}
+
+
+                                    <li class="level0 level-top ">
+                                        <a href="/blog/noticias" class="level-top">Blog</a>
+                                    </li>
+
+                                    <li class="level0 level-top last">
+                                        <a href="/contact" class="level-top">Contact</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-header" class="main-header hidden-tablet" data-sticky="true">
+            <div class="wrapper-top-menu container">
+                <div class="row">
+                    <div class="left-header col-sm-2">
+
+                        <a href="/" class="logo">
+                            <img class="x1" src="{{ store.logoStore }}" alt="{{ store.nameStore }}" />
+                            <img class="logo-sticky" src="{{ store.logoStore }}" alt="{{ store.nameStore }}" />
+                        </a>
+
+                    </div>
+                    <div class="float-none col-sm-12">
+                        <!-- Main Menu -->
+                        <div class="navigation-wrapper hidden-tablet">
+                            <div class="main-navigation">
+                                <!-- begin site-nav -->
+                                <ul class="top-navigation">
+
+
+                                    {% for category in categories %}
+
+                                    <li class="level0 level-top parent  ">
+                                        <a href="{{ category.url }}" class="level-top">
+                                            <span>
+                                                {{ category.name }}
+                                            </span>
+                                        </a>
+                                        <div class="level0 menu-wrap-sub  ">
+
+
+                                            <div class="ulmenu-block ulmenu-block-center menu-items grid12-9 itemgrid itemgrid-3col">
+                                                <ul class="level0">
+
+                                                    {% for children in category.children %}
+
+                                                    <li class="level1   groups  item  ">
+                                                        <a href="{{ children.url }}">{{ children.name }}</a>
+                                                        <div class=" menu-wrapper ">
+                                                            <ul class="level1">
+
+                                                                {% for sub in children.children %}
+
+                                                                <li class="level2">
+                                                                    <a href="{{ sub.url }}" class="site-nav__link">
+                                                                        {{ sub.name }}
+                                                                    </a>
+                                                                </li>
+
+                                                                {% endfor %}
+
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+
+                                            {% set menu_section = category.slug %}
+
+                                            {% if sections[menu_section] %}
+
+                                            <div class="menu-static-blocks ulmenu-block ulmenu-block-right pull-right grid12-3">
+                                                <img src="{{ sections[menu_section].image.full }}" alt="banner-right" />
+                                            </div>
+
+                                            {% endif %}
+
+                                        </div>
+                                    </li>
+
+                                    {% endfor %}
+
+
+                                    <li class="level0 level-top">
+                                        <a href="/blog/noticias" class="level-top">
+                                            <span>
+                                            Blog
+
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="level0 level-top">
+                                        <a href="/contact" class="level-top">
+                                            <span>
+                                            Contacto
+
+                                            </span>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                                <!-- //site-nav -->
+                            </div>
+                        </div>
+                        <!-- End Main Menu -->
+                    </div>
+                    <div class="right-header-menu">
+                        <div class="item header-maincart">
+                            <div class="cart-container">
+                                <a href="javascript:;" class="icon-cart-header">
+                                    <span class="icon_bag_alt"></span>
+                                    <span class="cart-count">{{ itemCart }}</span>
+                                </a>
+                                <div class="cart-wrapper">
+                                    <div class="cart-inner">
+                                        <div class="cartloading" style="display: none;"><div class="spinner"><div class="circle"></div></div></div>
+                                        <div class="cart-inner-content">
+                                            <div class="cart-content">
+
+                                                {% set cart = app.session.get('cart') %}
+
+                                                {% include 'views.partials.cart' %}
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item header-search">
+                            <div class="search-container">
+                                <div class="overwrite-setting">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                                <div class="switcher-content">
+                                    <!-- /snippets/search-bar.liquid -->
+                                    <form action="/search" method="post" class="input-group search-bar">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                        <div class="input-group form-search">
+
+                                            <input type="search" name="key" value="" placeholder="Search our store" class="input-group-field" aria-label="Search our store">
+                                            <button type="submit" class="btn-button">
+                                                <span><span><i class="fa fa-search"></i></span></span>
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item header-setting">
+                            <div class="setting-switcher switcher-wrap">
+                                <div class="overwrite-setting">
+                                    <span class="fa fa-bars"></span>
+                                </div>
+                                <div class="switcher-content">
+                                    <ul class="links">
+
+                                        <li>
+                                            <a href="/favoritos">Favoritos</a>
+                                        </li>
+                                        {% if customer.logged %}
+                                        <li>
+                                            <a href="/logout">Salir</a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="/login">Ingresar</a>
+                                        </li>
+                                        <li>
+                                            <a href="/register">Crear cuenta</a>
+                                        </li>
+                                        {% endif %}
+
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block header %}{% endblock %}
+    </div>
+</header>
+
+<div class="main-container">
+    <div class="main-wrapper">
+        <div class="main">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+<footer class="footer-wrapper">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row show-grid">
+                {% for key,menu in menus.footer.children %}
+                <div class="col-sm-3">
+                    <div class="footer-links">
+
+                        <div class="info-footer">
+                            <div class="widget-wrapper animated">
+
+                                <div class="footer-block-title">
+                                    <h3>{{ menu.name }}<span class="mobile-button visible-xs active">accordion-footer</span></h3>
+                                </div>
+
+                                <div class="custom-footer-content">
+
+                                    <ul class="footer-list">
+
+                                        {% for children in menu.children %}
+
+                                        <li>
+                                            <a href="{{ children.url }}">{{ children.name }}</a>
+                                        </li>
+
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="col-sm-3">
+                    <div class="info-footer">
+
+                        <div class="footer-block-title">
+                            <h3>SIGUENOS<span class="mobile-button visible-xs active">accordion-footer</span></h3>
+                        </div>
+
+                        <div class="custom-footer-content">
+                            <div class="block block-subscribe">
+
+                                <form id="subscribe_footer" action="/newsletter" method="post" name="mc-embedded-subscribe-form" class="input-group" novalidate="true">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                    <div class="item">
+                                        <div class="input-box">
+                                            <input id="fc-email" type="email" value="" placeholder="email@example.com" name="email" required="required" class="input-group-field" aria-label="email@example.com">
+                                        </div>
+                                        <div class="actions">
+                                            <input type="submit" class="btn-button uppercase effect" name="subscribe" value="Subscribe">
+                                        </div>
+                                    </div>
+                                    <label id="fc-response" for="fc-email"></label>
+                                </form>
+                            </div>
+                            <div class="social">
+
+                                <ul class="social-icons small light">
+
+                                    {% for social in socials %}
+
+                                    <li class="{{ social.name }}">
+                                        <a class="fa fa-{{ social.name }}" href="{{ social.url }}" target="_blank"><span>{{ social.title }}</span></a>
+                                    </li>
+
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <address>Copyright © 2015 {{ store.nameStore }}. Todos los derechos reservados.</address>
+                    <div id="back-top" class="hidden-phone">
+                        <a href="#top">
+                            <div class="sticker-wrapper">
+                                <div class="sticker">
+                                    <i class="fa fa-angle-up"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+{% include 'views.notifications' %}
+
+<script type="text/javascript">
+    var frontendData = {};
+    frontendData.logo = "{{ store.logoStore }}";
+    frontendData.logoHome = "{{ store.logoStore }}";
+    frontendData.logoRetina = "{{ store.logoStore }}";
+    frontendData.logoHomeRetina = "{{ store.logoStore }}";
+    frontendData.enableCurrency = false;
+    var dataZoom = {};
+    dataZoom.loading = "{{ 'img/loader.gif' | static_url }}";
+
+    dataZoom.lightbox = false;
+
+    dataZoom.position = 'inside';
+    var cartData = {};
+    cartData.removeItemLabel = 'Remover elemento';
+    cartData.totalLabel = 'Total:';
+    cartData.noItemLabel = 'No tiene elementos en su carrito de compra.';
+    cartData.buttonViewCart = 'Ver carrito';
+    cartData.buttonCheckout = 'Checkout';
+</script>
+
+<script src="{{ 'js/theme-scripts.js' | static_url }}"></script>
+<script src="{{ 'js/ico-slider.min.js' | static_url }}"></script>
+<script src="{{ 'js/fastclick.min.js' | static_url }}"></script>
+<script src="{{ 'js/form.js' | static_url }}"></script>
+<script src="{{ 'js/jquery.elevatezoom.min.js' | static_url }}"></script>
+<script src="{{ 'js/jquery.fancybox.pack.js' | static_url }}"></script>
+<script src="{{ 'js/frontend.min.js' | static_url }}"></script>
+
+<div style="display: none">
+    <div id="popup_newsletter" class="block block-subscribe">
+        <div class="block-title">
+            <span>{{ sections.newsletter.title }}</span>
+        </div>
+        <div class="content">
+            {{ sections.newsletter.description }}
+        </div>
+
+        <form id="subscribe_popup" action="/newsletter" method="post" name="mc-embedded-subscribe-form">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+            <div class="block-content">
+                <div class="input-box">
+                    <input id="mc-email" type="email" value="" name="email" required="required" placeholder="email@example.com" class="input-group-field input-text" aria-label="email@example.com">
+                    <label id="mc-response" for="mc-email"></label>
+                    <div class="action-newsletter">
+                        <input type="submit" class="btn-button uppercase effect" name="subscribe" value="Subscribe">
+                    </div>
+                </div>
+                <label class="subcriper_label">
+                    <input type="checkbox">
+                    No mostrar otra vez.
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var newsletterData = {};
+    newsletterData.bg_color = '';
+    newsletterData.bg_image = '{{ sections.newsletter.image.medium }}';
+    newsletterData.width = '810';
+    newsletterData.height = '400';
+</script>
+
+<div id="wishlist-box" class="box-popup animate-box">
+    <div class="row">
+        <div class="box-inner">
+            <div class="col-sm-6">
+                <div class="item">
+                    <div class="heading">Agregado recientemente a favoritos:</div>
+                    <div class="product-info">
+                        <div class="img">
+                            <a class="product-link" href="#"><img class="product-img" src="{{ 'img/noimage.jpg' | static_url }}" alt="" width="90" /></a>
+                        </div>
+                        <div class="info">
+                            <div class="product-title"><a class="product-link" href="#"></a></div>
+                            <div class="product-price"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="action">
+                    <div class="product-subtotal"></div>
+                    <div class="cart-text">&nbsp;</div>
+                    <div>
+                        <button type="button" class="btn-button close-box">Continuar comprando</button>
+                        <a class="btn-button" href="/favoritos">Mis favoritos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cart-box" class="box-popup animate-box">
+    <div class="row">
+        <div class="box-inner">
+            <div class="col-sm-6">
+                <div class="item">
+                    <div class="heading">Agregado recientemente al carrito:</div>
+                    <div class="product-info">
+                        <div class="img">
+                            <a class="product-link" href="#"><img class="product-img" src="{{ 'img/noimage.jpg' | static_url }}" alt="" width="90" /></a>
+                        </div>
+                        <div class="info">
+                            <div class="product-title"><a class="product-link" href="#"></a></div>
+                            <div class="product-price"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="action">
+                    <div class="product-subtotal"></div>
+                    <div class="cart-text">&nbsp;</div>
+                    <div>
+                        <button type="button" class="btn-button close-box">Continuar comprando</button>
+                        <a class="btn-button" href="/cart">Mi carrito</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="error-notice" class="box-popup animate-box">
+    <div class="row">
+        <div class="box-inner">
+            <div class="col-sm-6">
+                <div class="item">
+                    <div class="heading"></div>
+                    <div class="message"></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="action">
+                    <div class="cart">
+                        <button type="button" class="btn-button close-box">Continuar comprando</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

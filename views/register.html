@@ -1,0 +1,46 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde template-customers-register{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="account-create">
+        <div class="page-title">
+            <h1>Crear cuenta</h1>
+            <p>Por favor ingresar la siguiente información para poder crear su cuenta.</p>
+        </div>
+
+        <div class="form-box">
+            <form method="post" action="/register" id="create_customer" accept-charset="UTF-8">
+                <div class="content">
+                    <ul class="form-list">
+                        <li>
+                            <label for="FirstName" class="hidden-label">Nombres</label>
+                            <input type="text" name="firstname" id="FirstName" class="input-full" placeholder="First Name" autocapitalize="words" autofocus="">
+                        </li>
+                        <li>
+                            <label for="LastName" class="hidden-label">Apellidos</label>
+                            <input type="text" name="lastname" id="LastName" class="input-full" placeholder="Last Name" autocapitalize="words">
+                        </li>
+                        <li>
+                            <label for="Email" class="hidden-label">Correo Electrónico</label>
+                            <input type="email" name="email" id="Email" class="input-full" placeholder="Email" autocorrect="off" autocapitalize="off">
+                        </li>
+                        <li>
+                            <label for="CreatePassword" class="hidden-label">Contraseña</label>
+                            <input type="password" name="password" id="CreatePassword" class="input-full" placeholder="Password">
+                        </li>
+                    </ul>
+                </div>
+                <div class="buttons-set">
+                    <input type="submit" value="Crear" class="btn-button uppercase">
+                    <p><a href="/">Return to Store</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

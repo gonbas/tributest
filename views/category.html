@@ -1,0 +1,230 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde template-collection{% endblock %}
+
+{% block content %}
+
+<nav class="main-breadcrumbs" role="navigation" aria-label="breadcrumbs">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li class="home">
+                    <a href="/" title="Back to the frontpage">Inicio</a>
+                </li>
+
+                {% if category.parent %}
+
+                <li>
+                    <span aria-hidden="true">/</span>
+                    <a href="{{ category.parent.url }}">{{ category.parent.name }}</a>
+                </li>
+
+                {% endif %}
+
+
+                <li>
+                    <span aria-hidden="true">/</span>
+                    <span>{{ category.name }}</span>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-3 col-sm-12 sidebar ">
+            <div class="block block-nav">
+                <div class="block-title"><span>Categorias</span></div>
+                <div class="block-content">
+
+                    <ul id="categories_nav" class="nav-accordion nav-categories">
+
+                        {% for cat in categories %}
+
+                        <li class="level0 level-top {{ cat.children | length > 0 ? 'parent' : '' }} {{ loop.last ? 'last' : '' }}">
+                            <a href="{{ cat.url }}" class="level-top"><span>{{ cat.name }}</span></a>
+                            <ul class="level0">
+
+                                {% for child in cat.children %}
+
+                                <li class="level1 parent ">
+                                    <a href="{{ child.url }}"><span>{{ child.name }}</span></a>
+                                    <ul class="level1">
+
+                                        {% for sub in child.children %}
+
+                                        <li class="level2 ">
+                                            <a href="{{ sub.url }}" class="site-nav__link">
+                                                {{ sub.name }}
+                                            </a>
+                                        </li>
+
+                                        {% endfor %}
+
+                                    </ul>
+                                </li>
+
+                                {% endfor %}
+
+                            </ul>
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+            <div class="block-layered-nav">
+
+                <dl class="narrow-by-list">
+
+                    {% for option in category.options %}
+
+                    <div class="block narrow-item" data-option="{{ option.idOption }}">
+                        <div class="block-title">
+                            <span>{{ option.name }}</span>
+                            <span class="mobile-button visible-xs active"></span>
+                        </div>
+                        <div class="block-content">
+                            <dd class="layer-filter {{ option.type == 'colors' ? 'color' : 'size' }}">
+                                <ol class="swatch-list fields">
+                                    {% for value in option.values %}
+
+                                    {% if option.type == 'colors' %}
+
+                                    <li>
+                                        <div class="item {{ value.selected ? 'active' : '' }}">
+                                            <input type="checkbox" {{ value.selected ? 'checked' : '' }} value="{{ value.idOptionValue }}" class="hide">
+                                            <span class="has-image">
+                                                <i style="{{ value.value1 }}"></i>
+                                            </span>
+                                        </div>
+                                    </li>
+
+                                    {% else %}
+
+                                    <div class="item swatch-checkbox {{ value.selected ? 'active' : '' }}">
+                                        <input type="checkbox" {{ value.selected ? 'checked' : '' }} value="{{ value.idOptionValue }}" class="checkbox" />
+                                        <span class="name">{{ value.name }}</span>
+                                    </div>
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </ol>
+                            </dd>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </dl>
+            </div>
+        </div>
+
+        <div class=" col-md-9 col-sm-12 ">
+
+            <div id="collection-main">
+                <div class="toolbar">
+                    <div class="row">
+                        <!-- /snippets/collection-sorting.liquid -->
+                        <div class="col-sm-9">
+                            <div class="sorter_wrap">
+                                <div class="sort-by">
+                                    <div class="select-new">
+                                        <div class="select-inner">
+                                            <span>Ordenar: </span>
+                                            <select name="sort-by" class="field">
+                                                <option value="2" {% if category.filter == '2' %} selected {% endif %}>Precio, Menor a Mayor</option>
+                                                <option value="1" {% if category.filter == '1' %} selected {% endif %}>Precio, Mayor a Menor</option>
+                                                <option value="3" {% if category.filter == '3' %} selected {% endif %}>Nombre (A-Z)</option>
+                                                <option value="4" {% if category.filter == '4' %} selected {% endif %}>Nombre (Z-A)</option>
+                                                <option value="5" {% if category.filter == '5' %} selected {% endif %}>Fecha, nuevos primero</option>
+                                                <option value="6" {% if category.filter == '6' %} selected {% endif %}>Date, antiguos primero</option>
+                                                <option value="7" {% if category.filter == '7' %} selected {% endif %}>Destacados primero</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="limited_wrap hidden-xs">
+                                <div class="limited-view select-new">
+                                    <div class="select-inner">
+                                        <span>Ver: </span>
+                                        <select name="limiter" class="field">
+                                            <option value="12" {% if category.productsPerPage == 12 %} selected {% endif %}>12 Productos/página</option>
+                                            <option value="16" {% if category.productsPerPage == 16 %} selected {% endif %}>16 Productos/página</option>
+                                            <option value="32" {% if category.productsPerPage == 32 %} selected {% endif %}>32 Productos/página</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="view-mode">
+                                <span class="layout-opt active" data-layout="grid" title="Grid view">
+                                  <span aria-hidden="true" class="icon_grid-3x3"></span>
+                                </span>
+                                <span class="layout-opt" data-layout="list" title="List view">
+                                  <span aria-hidden="true" class="icon_ul"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="category-products">
+                        <div id="products" class="products-grid itemgrid grid-product-masonry">
+
+                            {% if category.products | length > 0 %}
+
+                            {% for product in category.products %}
+
+                            <div class="item product col-sm-4">
+                                {% include 'views.inc.card' %}
+                            </div>
+
+                            {% endfor %}
+
+                            {% else %}
+
+                            <div class="col-sm-12"><p>Aún no hay productos en esta categoria, intente nuevamente más tarde.</p> </div>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                {% if category.pages > 1 %}
+
+                <div class="pagenav-wrap">
+                    <div class="pagination-search">
+
+                        {% if category.currentPage != 1 %}
+                        <span class="prev">
+                            <a href="#" data-value="{{ p-1 }}"><i class="fa fa-angle-double-left"></i></a>
+                        </span>
+                        {% endif %}
+
+                        {% for p in 1..category.pages if p > 0 %}
+                        <span class="page {{ category.currentPage == p ? 'current' : '' }}">{% if category.currentPage == p %}{{ p }}{% else %}<a href="#" data-value="{{ p }}">{{ p }}</a>{% endif %}</span>
+                        {% endfor %}
+
+                        {% if category.currentPage != category.pages %}
+                        <span class="next">
+                            <a href="#" data-value="{{ p+1 }}"><i class="fa fa-angle-double-right"></i></a>
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

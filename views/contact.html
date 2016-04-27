@@ -1,0 +1,52 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}template-page{% endblock %}
+
+{% block content %}
+
+<div class="map section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="map-wrapper">
+                    <div id="map" data-lat="{{ page.section.latitude.css }}" data-long="{{ page.section.longitude.css }}" ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="contact-info no-padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Contacto</h3>
+
+                {{ page.content }}
+
+
+            </div>
+            <div class="col-md-8">
+
+
+                <div class="form-vertical">
+                    <form method="post" action="/form" id="contact_form" class="contact-form" accept-charset="UTF-8">
+                        <input type="hidden" value="{{ csrf_token() }}" name="_token"/>
+
+                        <input type="text" id="ContactFormName" class="input-full" name="Nombre" placeholder="Nombre" autocapitalize="words" value="">
+
+                        <input type="email" id="ContactFormEmail" class="input-full" name="Email" placeholder="Email" autocorrect="off" autocapitalize="off" value="">
+
+                        <textarea rows="10" id="ContactFormMessage" class="input-full" name="Mensaje" placeholder="Mensaje"></textarea>
+                        <input type="submit" value="Enviar">
+                    </form>
+                </div>
+
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+{% endblock %}

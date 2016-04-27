@@ -1,0 +1,67 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde template-blog{% endblock %}
+
+{% block content %}
+
+<nav class="main-breadcrumbs" role="navigation" aria-label="breadcrumbs">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li class="home">
+                    <a href="/" title="Back to the frontpage">Inicio</a>
+                </li>
+
+                <li>
+                    <span aria-hidden="true">/</span>
+                    <span>{{ tag.name }}</span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="blog-wrapper">
+
+                {% for post in posts %}
+
+                <div class="postWrapper">
+                    <div class="postTitle">
+                        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                        <div class="postDetails">
+                            <a href="{{ post.url }}">
+                                {{ post.comments | length }} comentarios
+                            </a>
+                            |
+                            <time datetime="2015-10-27">
+                                {{ post.created_at | date('M d, Y') }}
+                            </time>
+
+                        </div>
+                    </div>
+                    <div class="postContent">
+
+                        <div class="excerpt img-responsive">
+                            <a href="{{ post.url }}">
+                                <img src="{{ post.image.full }}" width="100%" alt="">
+                            </a>
+                        </div>
+
+                        {{ post.preview }}
+                    </div>
+                    <a class="btn-button" href="{{ post.url }}">Ver más →</a>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

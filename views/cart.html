@@ -1,0 +1,150 @@
+{% extends 'views.base' %}
+
+{% block bodyClass %}parallax-silde template-cart{% endblock %}
+
+{% block content %}
+
+<nav class="main-breadcrumbs" role="navigation" aria-label="breadcrumbs">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li class="home">
+                    <a href="/" title="Back to the frontpage">Inicio</a>
+                </li>
+
+                <li>
+                    <span aria-hidden="true">/</span>
+                    <span>Mi carrito</span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+
+    <div class="checkout-cart">
+        <div class="page-title title-buttons">
+            <h3>Shopping Cart</h3>
+        </div>
+        <div class="cart-inner">
+            <form action="/cart" method="post" novalidate="" class="cart table-wrap">
+                <div class="col-sm-8">
+                    <table class="data-table full cart-table">
+                        <thead>
+                        <tr><th class="hidden-phone"></th>
+                            <th class="text-center"></th>
+                            <th class="text-center">Precio</th>
+                            <th class="text-center">Cantidad</th>
+                        </tr></thead>
+                        <tbody>
+
+                        {% for item in cart.product %}
+
+                        <tr>
+                            <td class="hidden-phone text-left" width="10%" data-label="Product">
+                                <a href="{{ item.product.url }}" class="product-image">
+                                    <img src="{{ item.image }}" alt="{{ item.product.name }} -
+                    {% for key,option in item.option %}
+                    {{ item.values[key].name }}
+                    {% if not loop.last %} / {% endif %}
+
+                    {% endfor %}" width="110">
+                                </a>
+                            </td>
+                            <td class="text-left">
+                                <a href="{{ item.product.url }}" class="product-image visible-xs">
+                                    <img src="{{ item.image }}" alt="{{ item.product.name }} -
+                    {% for key,option in item.option %}
+                    {{ item.values[key].name }}
+                    {% if not loop.last %} / {% endif %}
+
+                    {% endfor %}" width="110">
+                                </a>
+                                <h5 class="product-name">
+                                    <a href="{{ item.product.url }}">
+                                        {{ item.product.name }}
+                                    </a>
+                                </h5>
+
+                                <p>{% for key,option in item.option %}
+                                    {{ item.values[key].name }}
+                                    {% if not loop.last %} / {% endif %}
+                                    {% endfor %}</p>
+
+
+
+                                <div class="cart-actions">
+                                    <a href="{{ item.product.url }}" class="edit-item">Ver</a>
+                                    <a  href="javascript:;" class="btn-remove btn-remove-cart remove-item" data-id="{{ item.item }}" title="Remover">Remover</a>
+                                </div>
+                            </td>
+                            <td data-label="Price">
+                  <span class="cart-price">
+                    <span class="money">{{ item.price | price }}</span>
+                  </span>
+                            </td>
+                            <td class="a-center product-qty last" data-label="Quantity">
+                                <div class="reduced items" onclick="var result = document.getElementById('updates_{{ item.item }}'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty > 1 ) result.value--;return false;">
+                                    <i class="fa fa-minus"></i>
+                                </div>
+                                <input type="text" name="updates[]" id="updates_{{ item.item }}" value="{{ item.quantity }}" min="0">
+                                <div class="increase items" onclick="var result = document.getElementById('updates_{{ item.item }}'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+
+                                <button type="button" class="btn-button btn-update btn-update-quantity tiny" data-handle="{{ item.item }}" data-target="#updates_{{ item.item }}"><span>Update</span></button>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-4">
+                    <div class="totals">
+                        <table id="shopping-cart-totals-table">
+                            <tfoot>
+                            <tr>
+                                <td class="a-right" colspan="1">
+                                    <strong>Grand Total</strong>
+                                </td>
+                                <td class="a-right">
+                                    <strong><span class="price"><span class="money" data-total>{{ cart.total | price }}</span></span></strong>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <td class="a-right" colspan="1">Subtotal</td>
+                                <td class="a-right">
+                                    <span class="price"><span class="money" data-subtotal>{{ cart.subtotal | price }}</span></span>
+                                </td>
+                            </tr>
+                            {% if cart.shipping %}
+                            <tr>
+                                <td class="a-right" colspan="1">Shipping</td>
+                                <td class="a-right">
+                                    <span class="price"><span class="money" data-shipping>{{ cart.shipping | price }}</span></span>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                        <ul class="checkout-types">
+                            <li>
+                                <input type="submit" name="checkout" class="btn-button uppercase" value="Seguir con el checkout">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
